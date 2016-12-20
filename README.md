@@ -1,0 +1,34 @@
+# DiA
+
+- **Image**: bundled snapshot of all the files that should be available inside the container
+- containers can be detached or interactive
+- `docker run --detach --name web1 nginx:latest`
+- `docker run --interactive --tty --link web1:web --name web_test busybox:latest /bin/sh `
+- `wget -O -http://web:80/`
+- ctrl-p+q to detach from an interactive container
+- `docker ps -a`
+- `docker restart web`
+- `docker logs -f web`
+- `docker exec container ps`
+- `docker create nginx` creates container in a stopped state
+- four states: running, paused, exited, restarting
+- `--read-only` read only file system
+- `docker run --env MY_ENVIRONMENT_VAR="this is a test" ...`
+- `--restart always`, while waiting to restart, container isn't running
+- `docker run --rm ...` automatically removes the container on exit
+- `docker rm -vf $(docker ps -a -q)` to remove all containers
+- three main ways to install Docker images:
+- - Docker Hub and other registries
+- - Using image files with docker save and docker load
+- - Building images with Dockerfiles
+- You’ve learned that Docker creates containers from images. An image is a file. It holds files that will be available to containers created from it and metadata about the image. This metadata contains information about relationships between images, the command history for an image, exposed ports, volume definitions, and more.
+- `docker search ...`
+- `docker rmi` to remove images, `docker rm` to remove containers
+- `docker images` lists images, `-a` to show all
+- A volume is a mount point on the con- tainer’s directory tree where a portion of the host directory tree has been mounted.
+- two types of volumes: **bind mount volume** (bound to user-specified directory) and **manged volumes** backed by docker managed space
+- `docker run -v ~/example-docs:/usr/local/apache2/htdocs:ro ...` bind read-only volume
+- When you mount a volume on a container file system, it replaces the content that the image provides at that location.
+- Managed volumes are created when you use the -v option (or --volume) on docker run but only specify the mount point in the container directory tree.
+- `docker inspect -f "{{json .Mounts}}" cass-shared` to show mount points
+- `--volumes-from <container>` to copy volumes to new container
