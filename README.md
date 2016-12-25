@@ -32,3 +32,13 @@
 - Managed volumes are created when you use the -v option (or --volume) on docker run but only specify the mount point in the container directory tree.
 - `docker inspect -f "{{json .Mounts}}" cass-shared` to show mount points
 - `--volumes-from <container>` to copy volumes to new container
+- running `docker rm` with the `-v` flag decrements managed volume reference counters and deletes volumes that aren't mounted in any other container. Always add this flag when removing containers
+- volume container pattern: container that is used as source of `--volumes-from`, does not need to be running
+- use volume containers to inject things into other containers
+- **clozed container**: created with `--net none`
+- `-P` flag creates mappings for all ports that are exposed
+- `docker port`
+- `--link <container name/id>:<alias>`
+- `--link` creates env vars
+- isolation: limit memory, limit cpu time, limit device access
+- containers start as the root user inside the container
